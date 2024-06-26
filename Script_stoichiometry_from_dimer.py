@@ -1,7 +1,6 @@
 # Functions used for estimating stoichiometry from a model of a dimer
 # 
-# Related publication: 
-# High-throughput algorithm predicts F-Type ATP synthase rotor ring stoichiometry of 8 to 27 protomers
+# Related preprint: 
 # https://doi.org/10.1101/2024.02.27.582367
 #
 # Contact: 
@@ -18,6 +17,7 @@
 #
 # Example usage in a Python script: 
 # predict_stoichiometry('./', 'dimer.pdb', 35)
+# where 35 is the maximum stoichiometry you expect for your protein; can be set higher
 #
 # Structure alignment relies on PyMOL 'align' function
 
@@ -63,7 +63,6 @@ def min_rmsd(rmsd_list):
     for i in range(2, len(rmsd_list) - 1):
         if rmsd_list[i] < rmsd_list[i - 1] and rmsd_list[i] < rmsd_list[i + 1]:
             return i
-
 
 def predict_stoichiometry(filepath, filename, max_expected_stoichiometry):
     return min_rmsd(rmsd_list_from_dimer(filepath, filename, max_expected_stoichiometry)) - 1
